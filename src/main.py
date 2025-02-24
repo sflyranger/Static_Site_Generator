@@ -1,5 +1,5 @@
 from textnode import TextNode, TextType
-from htmlnode import HTMLNode
+from htmlnode import HTMLNode, LeafNode, ParentNode
 from enum import Enum
 
 def __main__():
@@ -14,4 +14,20 @@ def __main__():
     print(props_to_html)
     dummy_html_node2 = HTMLNode("p", "Sample Text", [dummy_html_node], test_props)
     print(dummy_html_node2)
+
+    pnode1 = ParentNode(
+            "p",
+            [
+                LeafNode("b", "Bold text", test_props),
+                LeafNode(None, "Normal text"),
+                LeafNode("i", "italic text", test_props),
+                LeafNode(None, "Normal text"),
+                ],
+            )
+    pnode2 = ParentNode("p", [pnode1])
+
+    print(pnode1.to_html())
+
+    print(pnode2.to_html())
+
 __main__()

@@ -1,6 +1,6 @@
 import unittest 
 
-from htmlnode import HTMLNode, LeafNode
+from htmlnode import HTMLNode, LeafNode, ParentNode
 
 # Second unit test to check and make sure the HTMLNode is working properly.
 class TestHTMLNode(unittest.TestCase):
@@ -42,6 +42,39 @@ class TestHTMLNode(unittest.TestCase):
         l_node4_to_html = l_node4.to_html()
         expected4 = '<a href="https://www.google.com">Click me!</a>'
         self.assertEqual(l_node4_to_html, expected4)
+
+
+    # Unit Test to make sure ParentNode class is working and displaying correctly.
+    def test_parent(self):
+        props = {"href": "https://www.google.com", "target": "blank"}
+        pnode1 = ParentNode(
+            "p",
+            [
+                LeafNode("b", "Bold text", props),
+                LeafNode(None, "Normal text"),
+                LeafNode("i", "italic text", props),
+                LeafNode(None, "Normal text"),
+                ],
+            )
+        
+        # Testing to ensure the correct output.
+        expected1 = '<p><b href="https://www.google.com" target="blank">Bold text</b>Normal text<i href="https://www.google.com" target="blank">italic text</i>Normal text</p>'
+        pnode1_to_html = pnode1.to_html()
+        self.assertEqual(pnode1_to_html, expected1)
+
+        # Testing a parent inside of a parent.
+        pnode2 = ParentNode("p", [pnode1])
+        expected2 = '<p><p><b href="https://www.google.com" target="blank">Bold text</b>Normal text<i href="https://www.google.com" target="blank">italic text</i>Normal text</p></p>'
+        pnode2_to_html = pnode2.to_html()
+        self.assertEqual(expected2, pnode2_to_html)
+
+        
+        self.assertRaises(ValueError, ParentNode, None, [pnode2])
+        self.assertRaises(ValueError, ParentNode, "p", None)
+
+
+
+
 
 
 if __name__ == "__main__":

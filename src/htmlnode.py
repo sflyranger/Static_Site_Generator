@@ -1,4 +1,5 @@
-
+import logging 
+logging.basicConfig(level=logging.DEBUG)
 
 class HTMLNode():
     def __init__(self, tag = None, value = None, children = None, props = None):
@@ -50,7 +51,28 @@ class LeafNode(HTMLNode):
     
         
 
+# Creating the ParentNode class for HTMLNodes that have children
+class ParentNode(HTMLNode):
+    def __init__(self, tag, children, props = None):
+        super().__init__(tag, None, children, props)
+        self.children = children
 
+        if not tag:
+            raise ValueError("A tag is required for a ParentNode")
+        elif not children:
+            raise ValueError("Children are required for ParentNodes")
+        
+    def to_html(self):
+        base_str = f"<{self.tag}>"
+            
+        for child in self.children:
+            base_str = base_str + child.to_html()
+            
+            
+        end_str = f"</{self.tag}>"
+        final_str = base_str + end_str
+
+        return final_str
 
 
 

@@ -30,8 +30,8 @@ class HTMLNode():
 
 # Creating the LeafNode class that inherits from the HTMLNode class
 class LeafNode(HTMLNode):
-    def __init__(self, tag, value, props):
-        super().__init__(tag, value, props)
+    def __init__(self, tag, value, props=None):
+        super().__init__(tag, value, None, props)
 
     
     def to_html(self):
@@ -44,9 +44,10 @@ class LeafNode(HTMLNode):
         
         else:
             if self.props:
-                return f"<{self.tag}{self.props_to_html}>{self.value}</{self.tag}>"
+                return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
             else:
                 return f"<{self.tag}>{self.value}</{self.tag}>"
+    
         
 
 

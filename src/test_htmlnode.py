@@ -24,8 +24,25 @@ class TestHTMLNode(unittest.TestCase):
 
     # Unit test to check to make sure leaf node is functioning properly
     def test_leaf(self):
-        l_node = LeafNode("p", "This is a paragraph of text.")
+        l_node2 = LeafNode(None, "This is a leaf node", None)
+        l_node3 = LeafNode("p", "This is a paragraph of text.", None)
+        l_node4 = LeafNode("a", "Click me!", {"href": "https://www.google.com"})
+
+        # Testing output of the value given that there is not a tag.
+        l_node2_to_html = l_node2.to_html()
+        expected2 = f"{l_node2.value}"
+        self.assertEqual(l_node2_to_html, expected2)
+
+        # Testing the proper html output of node3.
+        l_node3_to_html = l_node3.to_html()
+        expected3 = "<p>This is a paragraph of text.</p>"
+        self.assertEqual(l_node3_to_html, expected3)
         
+        # Testing the proper html output of node4
+        l_node4_to_html = l_node4.to_html()
+        expected4 = '<a href="https://www.google.com">Click me!</a>'
+        self.assertEqual(l_node4_to_html, expected4)
+
 
 if __name__ == "__main__":
     unittest.main()

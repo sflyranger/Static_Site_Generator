@@ -31,7 +31,7 @@ class HTMLNode():
 
 # Creating the LeafNode class that inherits from the HTMLNode class
 class LeafNode(HTMLNode):
-    def __init__(self, tag, value, props=None):
+    def __init__(self, tag, value, props={}):
         super().__init__(tag, value, None, props)
 
     

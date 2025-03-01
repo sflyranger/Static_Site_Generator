@@ -2,6 +2,10 @@ from textnode import TextNode, TextType
 from htmlnode import HTMLNode, LeafNode, ParentNode
 from enum import Enum
 
+
+
+
+
 def __main__():
     dummy_text_node = TextNode("dummy text", TextType.Normal, "www.boot.dev")
     print(dummy_text_node)

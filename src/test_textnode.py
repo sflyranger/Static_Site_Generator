@@ -61,6 +61,7 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(expected_c, repr_code_nodes)
         self.assertEqual(expected_b, repr_bold_nodes)
         self.assertEqual(expected_i, repr_italic_nodes)
+        
 
     def test_delim_bold_double(self):
         node = TextNode(

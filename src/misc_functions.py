@@ -71,7 +71,7 @@ def split_nodes_image(old_nodes):
 
     for node in old_nodes:
         # Skipping the nodes with no text.
-        if node.type != TextType.TEXT:
+        if node.text_type != TextType.TEXT:
             new_nodes.append(node)
             continue
         
@@ -80,7 +80,7 @@ def split_nodes_image(old_nodes):
 
         # If no image exists, append the whole node.
         if not images:
-            new_nodes.append([node])
+            new_nodes.append(node)
             continue
         
         # Getting the first image.
@@ -101,12 +101,55 @@ def split_nodes_image(old_nodes):
 
         # Recrusively adding each new node.
         if len(parts) > 1 and parts[1]:
-            remainder_node =TextNode(parts[1], TextType.TEXT)
-            new_nodes.extend(split_nodes_image(remainder_node))
+            remainder_node = TextNode(parts[1], TextType.TEXT)
+            new_nodes.extend(split_nodes_image([remainder_node]))
         
     return new_nodes
 
         
+def split_nodes_link(old_nodes):
+
+    # Empty list to store the new_nodes.
+    new_nodes = []
+    # Looping through every node.
+    for node in old_nodes:
+        # If the node is not a text node, append it to the list.
+        if node.text_type != TextType.TEXT:
+            new_nodes.append(node)
+            continue
+        # Get the links info using the extract_markdown_links function.
+        links = extract_markdown_links(node.text)
+
+        # If there are no links, append the node to the list of new_nodes.
+        if not links:
+            new_nodes.append(node)
+            continue
+        
+        # Extracting the alt text and the link from the links
+        alt, url = links[0]
+
+        # Making the delimiter to use to split the text.
+        markdown = f"[{alt}]({url})"
+
+        # Splitting the text once based on the markdown.
+        parts = node.text.split(markdown, 1)
+
+        # If the first part is not empty, we append a new text node for the first part of the split.
+        if parts[0]:
+            new_nodes.append(TextNode(parts[0], TextType.TEXT))
+        
+        # Appending a new TextNode withe the alt, setting the TextType.LINK and adding the url
+        new_nodes.append(TextNode(alt, TextType.LINK, url))
+
+        # Recursively calling the split_nodes_link function on the remainder of the parts.
+        if len(parts) > 1 and parts[1]:
+            remainder = TextNode(parts[1], TextType.TEXT)
+            new_nodes.extend(split_nodes_link([remainder]))
+    
+    return new_nodes
+
+        
+
 
             
 

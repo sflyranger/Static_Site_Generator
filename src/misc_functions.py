@@ -65,6 +65,60 @@ def extract_markdown_links(text):
 
     return matches
 
+def split_nodes_image(old_nodes):
+    # Setting up the nodes list to store the newly created nodes for each node.
+    new_nodes = []
+
+    for node in old_nodes:
+        # Skipping the nodes with no text.
+        if node.type != TextType.TEXT:
+            new_nodes.append(node)
+            continue
+        
+        # Extracting the markdown image info.
+        images = extract_markdown_images(node.text)
+
+        # If no image exists, append the whole node.
+        if not images:
+            new_nodes.append([node])
+            continue
+        
+        # Getting the first image.
+        alt, url = images[0]
+
+        # Setting the image markdown.
+        markdown = f"![{alt}]({url})"
+
+        # Splitting based on the markdown.
+        parts = node.text.split(markdown, 1)
+
+        # If the first part isn't empty create the new text node for it.
+        if parts[0]:
+            new_nodes.append(TextNode(parts[0], TextType.TEXT))
+        
+        # Adding and appending the new image.
+        new_nodes.append(TextNode(alt, TextType.IMAGE, url))
+
+        # Recrusively adding each new node.
+        if len(parts) > 1 and parts[1]:
+            remainder_node =TextNode(parts[1], TextType.TEXT)
+            new_nodes.extend(split_nodes_image(remainder_node))
+        
+    return new_nodes
+
+        
+
+            
+
+
+
+
+
+
+
+
+
+
 
 
 

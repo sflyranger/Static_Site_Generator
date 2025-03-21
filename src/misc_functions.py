@@ -148,11 +148,23 @@ def split_nodes_link(old_nodes):
     
     return new_nodes
 
-        
 
+def text_to_textnodes(text):
 
-            
+    # Setting up the original text as a list of a text node.
+    nodes = [TextNode(text, TextType.TEXT)]
+    # Splitting the nodes based on bolded text.
+    nodes = split_nodes_delimiter(nodes, "**", TextType.BOLD)
+    # Splitting the nodes based on italic text.
+    nodes = split_nodes_delimiter(nodes, "_", TextType.ITALIC)
+    # Splitting the nodes based on code text.
+    nodes = split_nodes_delimiter(nodes, "`", TextType.CODE)
+    # Splitting the nodes based on image markdown text.
+    nodes = split_nodes_image(nodes)
+    # Splitting the nodes based on link markdown text.
+    nodes = split_nodes_link(nodes)
 
+    return nodes
 
 
 

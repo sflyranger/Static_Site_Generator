@@ -166,6 +166,28 @@ def text_to_textnodes(text):
 
     return nodes
 
+def markdown_to_blocks(markdown):
+    # Splitting the markdown based on double newline delimiter for blocks.
+    blocks = markdown.split("\n\n")
+    
+    # New list for the blocks post cleaning.
+    cleaned_blocks = []
+
+    # Looping through the blocks, splitting based on lines, removing empties and rejoining.
+    for block in blocks:
+        
+        lines = block.splitlines()
+        
+        stripped_lines = [line.strip() for line in lines if line.strip()]
+        
+        cleaned_block = "\n".join(stripped_lines)
+
+        if cleaned_block:
+            cleaned_blocks.append(cleaned_block)
+
+    return cleaned_blocks
+
+
 
 
 

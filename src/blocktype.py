@@ -39,7 +39,7 @@ def is_quote(block):
         return False
     
     for line in lines:
-        if not line.startwith(">"):
+        if not line.startswith(">"):
             return False
     
     return True

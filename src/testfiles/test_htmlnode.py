@@ -1,6 +1,6 @@
 import unittest 
 
-from htmlnode import HTMLNode, LeafNode, ParentNode
+from src.htmlnode import HTMLNode, LeafNode, ParentNode
 
 # Second unit test to check and make sure the HTMLNode is working properly.
 class TestHTMLNode(unittest.TestCase):

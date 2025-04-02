@@ -1,5 +1,5 @@
 import unittest
-from misc_functions import extract_markdown_images, extract_markdown_links
+from src.misc_functions import extract_markdown_images, extract_markdown_links
 
 class TestExtractMarkdown(unittest.TestCase):
     def test_extract_markdown_images(self):
@@ -10,4 +10,4 @@ class TestExtractMarkdown(unittest.TestCase):
         text = "This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)"
         matches = extract_markdown_links(text)
         self.assertListEqual([("to boot dev", "https://www.boot.dev"), ("to youtube", "https://www.youtube.com/@bootdotdev")], matches)
-        
+

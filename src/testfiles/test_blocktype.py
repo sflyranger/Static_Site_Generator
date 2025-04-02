@@ -1,7 +1,7 @@
 import unittest
 
-from blocktype import BlockType, block_to_block_type
-from misc_functions import markdown_to_blocks
+from src.blocktype import BlockType, block_to_block_type
+from src.misc_functions import markdown_to_blocks
 
 # Unit test class to test the BlockType functionality.
 class TestBlockType(unittest.TestCase):

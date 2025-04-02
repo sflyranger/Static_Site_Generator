@@ -1,7 +1,7 @@
 import unittest
 
-from textnode import TextType, TextNode
-from misc_functions import split_nodes_delimiter, split_nodes_link, split_nodes_image, text_to_textnodes, markdown_to_blocks
+from src.textnode import TextType, TextNode
+from src.misc_functions import split_nodes_delimiter, split_nodes_link, split_nodes_image, text_to_textnodes, markdown_to_blocks
 
 # First unit test to test if the TextNode class is working.
 class TestTextNode(unittest.TestCase):

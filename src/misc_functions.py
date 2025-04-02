@@ -148,7 +148,7 @@ def split_nodes_link(old_nodes):
     
     return new_nodes
 
-
+# Function to convert text to textnodes.
 def text_to_textnodes(text):
 
     # Setting up the original text as a list of a text node.
@@ -166,6 +166,7 @@ def text_to_textnodes(text):
 
     return nodes
 
+# Function to convert markdown text into blocks
 def markdown_to_blocks(markdown):
     # Splitting the markdown based on double newline delimiter for blocks.
     blocks = markdown.split("\n\n")

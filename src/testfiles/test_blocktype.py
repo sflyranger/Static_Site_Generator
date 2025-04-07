@@ -32,6 +32,7 @@ class TestBlockType(unittest.TestCase):
 > This is a quote block
 
 > Another, just to make sure
+> Keeps going
 
 - Part one of an unordered list
 - Part two

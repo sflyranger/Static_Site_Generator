@@ -14,7 +14,7 @@ def code_block_to_html(block):
         lines = lines[1:-1] # Removing the first and last lines with the backticks
     
     # Rejoin the content.
-    content = "\n".join(lines)
+    content = "\n".join(lines) + "\n"
 
     # No splitting into other text nodes here, so we just create a TextNode that's a code text_type.
     text_node = TextNode(content, TextType.CODE)

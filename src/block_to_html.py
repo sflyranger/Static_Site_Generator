@@ -106,7 +106,10 @@ def quote_block_to_html(block):
 
 
 def paragraph_block_to_html(block):
-    children = list(map(text_node_to_html_node, text_to_textnodes(block)))
+    # Replacing newlines with spaces in a paragraph.
+    new_block = block.replace("\n", " ")
+
+    children = list(map(text_node_to_html_node, text_to_textnodes(new_block)))
 
     html_node = ParentNode("p", children)
 
@@ -155,6 +158,7 @@ def markdown_to_html_node(markdown):
     # Looping through the blocks and creating different child nodes for each block.
     for block in blocks:
         block_type = block_to_block_type(block)
+
         child_node = block_to_html(block, block_type)
         children.append(child_node)
 

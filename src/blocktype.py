@@ -50,12 +50,9 @@ def is_unordered_list(block):
     if not lines:
         return False
     
-    for line in lines:
-        if not line.startswith("- "):
-            return False
 
-    return True
-        
+    return all(line.startswith(("- ", "* ", "+ ")) for line in lines)    
+
 def is_ordered_list(block):
     lines = block.splitlines()
 

@@ -180,12 +180,12 @@ def markdown_to_blocks(markdown):
         lines = block.splitlines()
         
         stripped_lines = [line.strip() for line in lines if line.strip()]
-        
+
+
         cleaned_block = "\n".join(stripped_lines)
 
         if cleaned_block:
             cleaned_blocks.append(cleaned_block)
-
     return cleaned_blocks
 
 

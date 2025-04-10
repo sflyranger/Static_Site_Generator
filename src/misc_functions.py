@@ -7,7 +7,7 @@ import re
 # Function to convert a TextNode to an HTMLNode
 def text_node_to_html_node(text_node):
     if text_node.text_type == TextType.TEXT:
-        return LeafNode(None, text_node.text)
+        return LeafNode("", text_node.text)
     elif text_node.text_type == TextType.BOLD:
         return LeafNode("b", text_node.text)
     elif text_node.text_type == TextType.ITALIC:

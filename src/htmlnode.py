@@ -38,6 +38,7 @@ class LeafNode(HTMLNode):
     def to_html(self):
 
         if not self.value:
+            print(f"Error Empty value in LeafNode with tag={self.tag}, props={self.props}")
             raise ValueError("A value is required for a LeafNode")
         
         if not self.tag:

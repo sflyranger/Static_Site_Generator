@@ -8,7 +8,7 @@ class TestTextToHTML(unittest.TestCase):
 
 
         test = text_node_to_html_node(tnode1)
-        self.assertIsNone(test.tag)
+        self.assertEqual(test.tag, "")
         self.assertEqual(test.value, "Practice Text")
         self.assertEqual(test.props, {}) 
 

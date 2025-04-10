@@ -17,11 +17,11 @@ def code_block_to_html(block):
     content = "\n".join(lines)
 
     # No splitting into other text nodes here, so we just create a TextNode that's a code text_type.
-    text_node = TextNode(content, text_type = TextType.CODE)
+    text_node = TextNode(content, TextType.CODE)
 
     child_node = text_node_to_html_node(text_node)
     # Convert this text node into an HTML node with the appropriate tag, and nested tag.
-    html_node = ParentNode("pre", children = [child_node])
+    html_node = ParentNode("pre", [child_node])
 
     return html_node
 
@@ -45,7 +45,7 @@ def heading_block_to_html(block):
     children = list(map(text_node_to_html_node, text_to_textnodes(block)))
     
     # Creating the final node with the appropriate tag.
-    html_node = ParentNode(tag = f"h{hash_count}", children = children)
+    html_node = ParentNode(f"h{hash_count}", children)
 
     return html_node 
 
@@ -59,8 +59,8 @@ def ordered_list_block_to_html(block):
     # Looping through each line, creating a parent node that houses the other html nodes.
     for line in lines:
         line = re.sub(r'^\d+\.\s*', '', line)
-        l_html_node = ParentNode(tag = "li",
-                                  children = list(map(text_node_to_html_node,
+        l_html_node = ParentNode("li",
+                                  list(map(text_node_to_html_node,
                                                        text_to_textnodes(line)
                                                     )
                                                 )
@@ -68,7 +68,7 @@ def ordered_list_block_to_html(block):
         children.append(l_html_node)
     
     # Creating the final node with the appropriate tag.
-    html_node = ParentNode(tag = "ol", children = children)
+    html_node = ParentNode("ol", children)
 
     return html_node
 
@@ -84,16 +84,12 @@ def unordered_list_block_to_html(block):
     for line in lines:
         line = line.replace("- ", "")
 
-        l_html_node = ParentNode(tag = "li",
-                                children = list(map(text_node_to_html_node,
-                                                     text_to_textnodes(line)
-                                                    )
-                                                )
+        l_html_node = ParentNode("li", list(map(text_node_to_html_node, text_to_textnodes(line)))
         )
         children.append(l_html_node)
 
     # Creating the final node with the appropriate tag.
-    html_node = ParentNode(tag = "ul", children = children)
+    html_node = ParentNode("ul", children)
 
     return html_node 
 
@@ -104,7 +100,7 @@ def quote_block_to_html(block):
 
     children = list(map(text_node_to_html_node, text_to_textnodes(content)))
 
-    html_node = ParentNode(tag = "blockquote", children = children)
+    html_node = ParentNode("blockquote", children)
 
     return html_node
 
@@ -112,7 +108,7 @@ def quote_block_to_html(block):
 def paragraph_block_to_html(block):
     children = list(map(text_node_to_html_node, text_to_textnodes(block)))
 
-    html_node = ParentNode(tag = "p", children = children)
+    html_node = ParentNode("p", children)
 
     return html_node
 
@@ -162,7 +158,7 @@ def markdown_to_html_node(markdown):
         child_node = block_to_html(block, block_type)
         children.append(child_node)
 
-    final_html_node = ParentNode(tag = "div", children = children)
+    final_html_node = ParentNode("div", children)
 
     return final_html_node
 

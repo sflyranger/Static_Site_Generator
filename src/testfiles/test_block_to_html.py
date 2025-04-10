@@ -69,3 +69,18 @@ the **same** even with inline stuff
         expected3 = '<div><h3>This is a third heading with a <img src="https://i.imgur.com/aKaOqIh.gif" alt="rick roll" /> and <img src="https://i.imgur.com/fJRm4Vk.jpeg" alt="obi wan" /></h3></div>'
 
         self.assertEqual(html3, expected3)
+
+    
+    def test_orderedlist_block(self):
+        self.maxDiff = None 
+        md = """
+1. This is an ordered list with _italic_ text
+2. **Bold** text
+3. An ![image](https://i.imgur.com/aKaOqIh.gif)
+4. And a link [to boot dev](https://www.boot.dev)
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        expected = '<div><ol><li>This is an ordered list with <i>italic</i> text</li><li><b>Bold</b> text</li><li>An <img src="https://i.imgur.com/aKaOqIh.gif" alt="image" /></li><li>And a link <a href="https://www.boot.dev">to boot dev</a></li></ol></div>'
+
+        self.assertEqual(html, expected)

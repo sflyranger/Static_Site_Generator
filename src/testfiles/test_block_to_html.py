@@ -84,3 +84,19 @@ the **same** even with inline stuff
         expected = '<div><ol><li>This is an ordered list with <i>italic</i> text</li><li><b>Bold</b> text</li><li>An <img src="https://i.imgur.com/aKaOqIh.gif" alt="image" /></li><li>And a link <a href="https://www.boot.dev">to boot dev</a></li></ol></div>'
 
         self.assertEqual(html, expected)
+
+    def test_unorderedlist_block(self):
+
+        self.maxDiff = None
+        md = """
+- This is an unordered list with _italic_ text
+- **Bold** text
+- An ![image](https://i.imgur.com/aKaOqIh.gif)
+- And a link [to boot dev](https://www.boot.dev)
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        expected = '<div><ul><li>This is an unordered list with <i>italic</i> text</li><li><b>Bold</b> text</li><li>An <img src="https://i.imgur.com/aKaOqIh.gif" alt="image" /></li><li>And a link <a href="https://www.boot.dev">to boot dev</a></li></ul></div>'
+
+        self.assertEqual(html, expected)
+        

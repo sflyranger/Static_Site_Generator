@@ -99,4 +99,19 @@ the **same** even with inline stuff
         expected = '<div><ul><li>This is an unordered list with <i>italic</i> text</li><li><b>Bold</b> text</li><li>An <img src="https://i.imgur.com/aKaOqIh.gif" alt="image" /></li><li>And a link <a href="https://www.boot.dev">to boot dev</a></li></ul></div>'
 
         self.assertEqual(html, expected)
-        
+
+    
+    def test_quote_block(self):
+
+        self.maxDiff = None
+        md = """
+> This is a quote block with _italic_ text
+> A bit of **Bold** text
+> and some `code` built into it
+ """
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        expected = "<div><blockquote>This is a quote block with <i>italic</i> text\nA bit of <b>Bold</b> text\nand some <code>code</code> built into it</blockquote></div>"  
+
+        self.assertEqual(html, expected)      
